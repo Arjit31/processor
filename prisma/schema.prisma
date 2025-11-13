@@ -53,7 +53,7 @@ model AvailableTrigger {
 model AvailableAction {
   id       String   @id @default(uuid())
   name     String
-  triggers Action[]
+  actions Action[]
 }
 
 model ZapRun {
