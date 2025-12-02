@@ -9,9 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("@prisma/client");
+const client_1 = require("./generated/prisma/client");
+const adapter_pg_1 = require("@prisma/adapter-pg");
 const kafkajs_1 = require("kafkajs");
-const prisma = new client_1.PrismaClient();
+const adapter = new adapter_pg_1.PrismaPg({
+    connectionString: process.env.DATABASE_URL
+});
+const prisma = new client_1.PrismaClient({ adapter });
 const TOPIC_NAME = "zap-events";
 const kafka = new kafkajs_1.Kafka({
     clientId: 'outbox-processor',
