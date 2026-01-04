@@ -1,6 +1,8 @@
 import { PrismaClient } from "./generated/prisma/client"
 import { PrismaPg } from "@prisma/adapter-pg"
 import {Kafka} from "kafkajs"
+import dotenv from "dotenv";
+dotenv.config();
 
 const adapter = new PrismaPg({ 
   connectionString: process.env.DATABASE_URL 
@@ -26,7 +28,7 @@ async function main() {
             topic: TOPIC_NAME,
             messages: pendingRows.map(r => {
                 return {
-                    value: r.zapRunId
+                    value: JSON.stringify({zapRunId: r.zapRunId, stage: 0})
                 }
             }),
         })
