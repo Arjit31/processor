@@ -1,7 +1,7 @@
 import { PrismaClient } from "./generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Kafka } from "kafkajs";
-import * as fs from 'fs'; 
+import * as fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
 import express from "express";
@@ -17,12 +17,12 @@ app.use(cors(corsOptions));
 const PORT = process.env.PORT || 3004;
 
 app.get("/", (req, res) => {
-  console.log("pinged")
-  res.status(200).send("OK");
+    console.log("pinged");
+    res.status(200).send("OK");
 });
 
 app.listen(PORT, () => {
-  console.log(`Ping server running on ${PORT}`);
+    console.log(`Ping server running on ${PORT}`);
 });
 
 const adapter = new PrismaPg({
@@ -37,24 +37,19 @@ const TOPIC_NAME = "zap-events";
 //     brokers: ["localhost:9092"],
 // });
 const kafka = new Kafka({
-  clientId: "outbox-processor",
-  brokers: ["kafka-378cf09f-arjit-chat-db.l.aivencloud.com:20666"],
-  ssl: {
-    key: fs.readFileSync(
-      path.join(__dirname, "../certs/service.key"),
-      "utf-8"
-    ),
-    cert: fs.readFileSync(
-      path.join(__dirname, "../certs/service.cert"),
-      "utf-8"
-    ),
-    ca: [
-      fs.readFileSync(
-        path.join(__dirname, "../certs/ca.pem"),
-        "utf-8"
-      ),
-    ],
-  },
+    clientId: "outbox-processor",
+    brokers: ["kafka-378cf09f-arjit-chat-db.l.aivencloud.com:20666"],
+    ssl: {
+        key: fs.readFileSync(
+            path.join(__dirname, "../certs/service.key"),
+            "utf-8"
+        ),
+        cert: fs.readFileSync(
+            path.join(__dirname, "../certs/service.cert"),
+            "utf-8"
+        ),
+        ca: [fs.readFileSync(path.join(__dirname, "../certs/ca.pem"), "utf-8")],
+    },
 });
 const producer = kafka.producer();
 
@@ -65,6 +60,13 @@ async function main() {
             const pendingRows = await prisma.zapRunOutbox.findMany({
                 take: 10,
             });
+            // add throttling
+            if (pendingRows.length === 0) {
+                new Promise((resolve) => {
+                    setTimeout(resolve, 2000);
+                }).then();
+                continue;
+            }
             await producer.send({
                 topic: TOPIC_NAME,
                 messages: pendingRows.map((r) => {
@@ -86,6 +88,9 @@ async function main() {
             });
         } catch (error) {
             console.log(error);
+            new Promise((resolve) => {
+                setTimeout(resolve, 2000);
+            }).then();
         }
     }
 }
