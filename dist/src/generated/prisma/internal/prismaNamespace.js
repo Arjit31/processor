@@ -48,7 +48,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defineExtension = exports.JsonNullValueFilter = exports.QueryMode = exports.JsonNullValueInput = exports.SortOrder = exports.ZapRunOutboxScalarFieldEnum = exports.ZapRunScalarFieldEnum = exports.AvailableActionScalarFieldEnum = exports.AvailableTriggerScalarFieldEnum = exports.ActionScalarFieldEnum = exports.TriggerScalarFieldEnum = exports.ZapScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
+exports.defineExtension = exports.NullsOrder = exports.JsonNullValueFilter = exports.QueryMode = exports.JsonNullValueInput = exports.SortOrder = exports.ZapRunOutboxScalarFieldEnum = exports.ZapRunScalarFieldEnum = exports.AvailableActionScalarFieldEnum = exports.AvailableTriggerScalarFieldEnum = exports.ActionScalarFieldEnum = exports.TriggerScalarFieldEnum = exports.ZapScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/client"));
 /**
  * Prisma Errors
@@ -134,21 +134,25 @@ exports.ZapScalarFieldEnum = {
 exports.TriggerScalarFieldEnum = {
     id: 'id',
     zapId: 'zapId',
-    typeId: 'typeId'
+    typeId: 'typeId',
+    metadata: 'metadata'
 };
 exports.ActionScalarFieldEnum = {
     id: 'id',
     zapId: 'zapId',
     typeId: 'typeId',
+    metadata: 'metadata',
     sortOrder: 'sortOrder'
 };
 exports.AvailableTriggerScalarFieldEnum = {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    image: 'image'
 };
 exports.AvailableActionScalarFieldEnum = {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    image: 'image'
 };
 exports.ZapRunScalarFieldEnum = {
     id: 'id',
@@ -174,5 +178,9 @@ exports.JsonNullValueFilter = {
     DbNull: exports.DbNull,
     JsonNull: exports.JsonNull,
     AnyNull: exports.AnyNull
+};
+exports.NullsOrder = {
+    first: 'first',
+    last: 'last'
 };
 exports.defineExtension = runtime.Extensions.defineExtension;

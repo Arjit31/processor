@@ -48,7 +48,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonNullValueFilter = exports.QueryMode = exports.JsonNullValueInput = exports.SortOrder = exports.ZapRunOutboxScalarFieldEnum = exports.ZapRunScalarFieldEnum = exports.AvailableActionScalarFieldEnum = exports.AvailableTriggerScalarFieldEnum = exports.ActionScalarFieldEnum = exports.TriggerScalarFieldEnum = exports.ZapScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
+exports.NullsOrder = exports.JsonNullValueFilter = exports.QueryMode = exports.JsonNullValueInput = exports.SortOrder = exports.ZapRunOutboxScalarFieldEnum = exports.ZapRunScalarFieldEnum = exports.AvailableActionScalarFieldEnum = exports.AvailableTriggerScalarFieldEnum = exports.ActionScalarFieldEnum = exports.TriggerScalarFieldEnum = exports.ZapScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/index-browser"));
 exports.Decimal = runtime.Decimal;
 exports.NullTypes = {
@@ -106,21 +106,25 @@ exports.ZapScalarFieldEnum = {
 exports.TriggerScalarFieldEnum = {
     id: 'id',
     zapId: 'zapId',
-    typeId: 'typeId'
+    typeId: 'typeId',
+    metadata: 'metadata'
 };
 exports.ActionScalarFieldEnum = {
     id: 'id',
     zapId: 'zapId',
     typeId: 'typeId',
+    metadata: 'metadata',
     sortOrder: 'sortOrder'
 };
 exports.AvailableTriggerScalarFieldEnum = {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    image: 'image'
 };
 exports.AvailableActionScalarFieldEnum = {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    image: 'image'
 };
 exports.ZapRunScalarFieldEnum = {
     id: 'id',
@@ -146,4 +150,8 @@ exports.JsonNullValueFilter = {
     DbNull: 'DbNull',
     JsonNull: 'JsonNull',
     AnyNull: 'AnyNull'
+};
+exports.NullsOrder = {
+    first: 'first',
+    last: 'last'
 };

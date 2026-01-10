@@ -41,14 +41,25 @@ const kafka = new Kafka({
     brokers: ["kafka-378cf09f-arjit-chat-db.l.aivencloud.com:20666"],
     ssl: {
         key: fs.readFileSync(
-            path.join(__dirname, "../certs/service.key"),
+            process.env.ENVIRONMET === "DEV"
+                ? path.join(__dirname, "../certs/service.key")
+                : path.join(__dirname, "../../certs/service.key"),
             "utf-8"
         ),
         cert: fs.readFileSync(
-            path.join(__dirname, "../certs/service.cert"),
+            process.env.ENVIRONMET === "DEV"
+                ? path.join(__dirname, "../certs/service.cert")
+                : path.join(__dirname, "../../certs/service.cert"),
             "utf-8"
         ),
-        ca: [fs.readFileSync(path.join(__dirname, "../certs/ca.pem"), "utf-8")],
+        ca: [
+            fs.readFileSync(
+                process.env.ENVIRONMET === "DEV"
+                    ? path.join(__dirname, "../certs/ca.pem")
+                    : path.join(__dirname, "../../certs/ca.pem"),
+                "utf-8"
+            ),
+        ],
     },
 });
 const producer = kafka.producer();
